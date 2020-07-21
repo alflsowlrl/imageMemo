@@ -1,8 +1,10 @@
 package com.example.tab2_test;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,12 +16,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.PermissionChecker;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.Permission;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         AddGroup = (TextView)findViewById(R.id.AddGroup);
 
         mContext = this;
+
+        checkPermission();
 
         //리스트뷰와 리스트를 연결하기 위해 사용되는 어댑터
         adapter = new GroupNameListAdapter(mContext,
@@ -151,5 +160,54 @@ public class MainActivity extends AppCompatActivity {
 
         LoadFileNames loadFileNames = new LoadFileNames();
         loadFileNames.execute();
+    }
+
+    void checkPermission() {
+        ArrayList<String> premissionInRequest = new ArrayList<String>();
+        // 1. 위험권한(Camera) 권한 승인상태 가져오기
+        ArrayList<String> permissions = new ArrayList<String>();
+        permissions.add(Manifest.permission.READ_CONTACTS);
+        permissions.add(Manifest.permission.WRITE_CONTACTS);
+        permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        for(String permission : permissions){
+            if(ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED){
+                premissionInRequest.add(permission);
+            }
+        }
+
+        if(!premissionInRequest.isEmpty()){
+            requestPermission(premissionInRequest);
+        }
+
+    }
+
+    void requestPermission(ArrayList<String> permissions) {
+        // 2. 권한 요청
+        String[] premissionInRequest = new String[permissions.size()];
+        int j = 0;
+        for(int i = 0; i < permissions.size(); i++){
+            String permission = permissions.get(i);
+            if(ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED){
+                premissionInRequest[j++] = permission;
+            }
+        }
+
+        ActivityCompat.requestPermissions( this, (String[]) premissionInRequest, 200);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == 200){
+            ArrayList<Integer> results = new ArrayList<Integer>();
+            for(int i = 0; i < grantResults.length; i++){
+                if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
+                    finish();
+                }
+            }
+        }
+
     }
 }

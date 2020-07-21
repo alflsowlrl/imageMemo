@@ -29,6 +29,7 @@ public class PhonePopup extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.group_popup);
 
+
         //UI 객체생성
         EditGroup = (EditText) findViewById(R.id.txtText);
 
