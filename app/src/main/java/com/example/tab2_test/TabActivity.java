@@ -60,9 +60,9 @@ public class TabActivity extends AppCompatActivity{
 
 
 
-        final Long id = PreferenceManager.getLong(getApplicationContext(), "id");
+        final String id = PreferenceManager.getString(getApplicationContext(), "user_id");
 
-        if(id == -1){
+        if(id == "" || id == null){
             UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
                 @Override
                 public void onCompleteLogout() {

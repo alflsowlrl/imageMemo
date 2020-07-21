@@ -5,4 +5,5 @@
     <color name="colorAccent">#FADAD8</color>
     <color name="tab_background_selected">#FADAD8</color>
     <color name="tab_background_unselected">#ffffff</color>
+    <color name="transparent">#00000000</color>
 </resources>

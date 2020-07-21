@@ -56,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
         //user id를 저장한다.
         Intent intent = getIntent();
         Long user_id = intent.getLongExtra("id", -1L);
-        PreferenceManager.setLong(mContext, "id", user_id);
+        PreferenceManager.setString(mContext, "user_id", "" + user_id);
+        Log.d("myApp", "this is user id: " + PreferenceManager.getString(mContext, "user_id"));
 
 
 

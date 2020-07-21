@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -100,7 +101,7 @@ public class GroupPageTab extends FragmentTab implements LoaderManager.LoaderCal
         final ArrayList<String> result = new ArrayList<String>();
 
         final String group_name = PreferenceManager.getString(getContext(),"group_name");
-        final ArrayList<String> fileNameList = new ArrayList<String>();
+        final ArrayList<ImageFile> fileNameList = new ArrayList<ImageFile>();
 
         class LoadFileNames extends AsyncTask<Void, Void, Void> {
             @Override
@@ -115,12 +116,13 @@ public class GroupPageTab extends FragmentTab implements LoaderManager.LoaderCal
                     for (int index = 0; index < array.length(); ++index) {
                         JSONObject offerObject = array.getJSONObject(index);
                         String fileName = offerObject.getString("file_name");
+                        int likes = offerObject.getInt("likes");
 
-                        Log.d("gallery", fileName);
+                        Log.d("gallery", fileName + String.valueOf(likes));
 
 
 
-                        fileNameList.add(fileName);
+                        fileNameList.add(new ImageFile(fileName, likes));
 
                     }
 
@@ -225,9 +227,10 @@ public class GroupPageTab extends FragmentTab implements LoaderManager.LoaderCal
 
     @Override
     public void OnClickImage(Uri imageUri) {
-        Intent fullScreenIntent = new Intent(this.getContext(), FullScreenImageActivity.class);
-        fullScreenIntent.setData(imageUri);
-        startActivity(fullScreenIntent);
+//        Intent fullScreenIntent = new Intent(this.getContext(), FullScreenImageActivity.class);
+//        fullScreenIntent.setData(imageUri);
+//        fullScreenIntent.setData()
+//        startActivity(fullScreenIntent);
     }
 
     @Override

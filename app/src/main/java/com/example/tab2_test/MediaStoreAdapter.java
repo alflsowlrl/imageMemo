@@ -1,6 +1,7 @@
 package com.example.tab2_test;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,8 +28,10 @@ public class MediaStoreAdapter extends RecyclerView.Adapter<MediaStoreAdapter.Vi
     private Cursor mMediaStoreCursor;
     private final Activity mActivity;
     private OnClickThumbListener mOnClickThumbListener;
-    ArrayList<String> file_name_list = new ArrayList<String>();
+    ArrayList<ImageFile> file_name_list = new ArrayList<ImageFile>();
     private final String server_url = "http://192.249.19.244:1880";
+
+
 
     public interface OnClickThumbListener {
         void OnClickImage(Uri imageUri);
@@ -53,7 +56,7 @@ public class MediaStoreAdapter extends RecyclerView.Adapter<MediaStoreAdapter.Vi
 
         String group_name = PreferenceManager.getString(mActivity.getApplicationContext(),"group_name");
 
-        String url = server_url + "/download/" + group_name + "+" + file_name_list.get(position);
+        String url = server_url + "/download/" + group_name + "+" + file_name_list.get(position).name;
 
         Glide.with(mActivity)
                 .load(url)
@@ -81,7 +84,26 @@ public class MediaStoreAdapter extends RecyclerView.Adapter<MediaStoreAdapter.Vi
             super(itemView);
 
             mImageView = (ImageView) itemView.findViewById(R.id.mediastoreImageView);
-            mImageView.setOnClickListener(this);
+            mImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent fullScreenIntent = new Intent(view.getContext(), FullScreenImageActivity.class);
+                    try{
+                        ImageFile imageFile = file_name_list.get(getAdapterPosition());
+                        String file_name = imageFile.getName();
+                        int likes = imageFile.getLikes();
+
+                        fullScreenIntent.putExtra("file_name", file_name);
+                        fullScreenIntent.putExtra("likes", "" + likes);
+
+                        mActivity.startActivity(fullScreenIntent);
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+                }
+            });
         }
 
         public ImageView getImageView() {
@@ -115,7 +137,7 @@ public class MediaStoreAdapter extends RecyclerView.Adapter<MediaStoreAdapter.Vi
 
     private void getOnClickUri(int position) {
 
-        String file_name = file_name_list.get(position);
+        String file_name = file_name_list.get(position).name;
         String group_name = PreferenceManager.getString(mActivity.getApplicationContext(), "group_name");
         String file_url = server_url + "/download/" + group_name + "+" + file_name;
 

@@ -131,7 +131,7 @@ public class HttpRequestHelper {
         catch (Exception e){e.printStackTrace();}
     }
 
-    public String REGISTER_USER(Long id){
+    public String REGISTER_USER(String id){
         String json = "";
         String url = "http://192.249.19.244:1880/api/user";
 
@@ -140,7 +140,7 @@ public class HttpRequestHelper {
 
             JSONObject jsonObject = new JSONObject();
 
-            jsonObject.accumulate("user_id", String.valueOf(id));
+            jsonObject.accumulate("user_id", id);
 
 
             json = jsonObject.toString();
@@ -188,6 +188,29 @@ public class HttpRequestHelper {
 
     public String GETAllGroupsNames(){
         return REQUEST("GET", "http://192.249.19.244:1880/api/groupNamesAll", "");
+    }
+
+    public void UPDATE_IMAGE_LIKES(String file_name, String group_name, String likes){
+        String json = "";
+
+        try {
+
+            // build jsonObject
+
+            JSONObject jsonObject = new JSONObject();
+
+            jsonObject.accumulate("file_name", file_name);
+
+            jsonObject.accumulate("group_name", group_name);
+
+            jsonObject.accumulate("likes", likes);
+
+
+            json = jsonObject.toString();
+        }
+        catch (Exception e){e.printStackTrace();}
+
+        REQUEST("POST", "http://192.249.19.244:1880/api/memoBookLikesUpdate", json);
     }
 
     public String REGISTER_GROUP(String group_name){

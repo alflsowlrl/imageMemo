@@ -23,7 +23,7 @@
 
         <activity android:name=".LoginActivity"
             android:theme = "@style/LodingTheme">
-            <intent-filter>
+            <intent-filter>s
 
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,7 +34,9 @@
         <activity android:name=".TabActivity"/>
         <activity android:name=".contentWriteActivity"/>
         <activity android:name=".PhonePopup" android:theme="@android:style/Theme.Dialog" />
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity">
+
+        </activity>
         <activity android:name=".FullScreenImageActivity"/>
 
         <provider

@@ -1,13 +1,22 @@
 package com.example.tab2_test;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.KakaoSDK;
 import com.kakao.auth.KakaoAdapter;
@@ -20,6 +29,10 @@ import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
 import com.kakao.util.exception.KakaoException;
+import com.kakao.util.helper.Utility;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import static com.example.tab2_test.App.getGlobalApplicationContext;
 
@@ -35,6 +48,9 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
 
+
+
+
         // mainApplication.java
 //        if (KakaoSDK.getAdapter() == null) {
 //            KakaoSDK.init(new App.KakaoSDKAdapter());
@@ -44,6 +60,8 @@ public class LoginActivity extends AppCompatActivity {
         Session.getCurrentSession().addCallback(sessionCallback);
         Session.getCurrentSession().checkAndImplicitOpen();
     }
+
+
 
 
 
