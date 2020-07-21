@@ -23,9 +23,9 @@
         android:layout_marginLeft="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#534847"
         android:dividerHeight="0px"
         android:divider="#ffffff"
         android:fontFamily="@font/jejumyeongjo"
+        android:textColor="#534847"
         android:id="@+id/listview"/>
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.myapp;
+package com.example.tab2_test;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -20,8 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.kakao.usermgmt.StringSet.user_id;
 
 public class CardViewActivity extends AppCompatActivity {
 

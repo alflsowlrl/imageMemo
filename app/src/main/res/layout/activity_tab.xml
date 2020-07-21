@@ -17,18 +17,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/main_tablayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="48dp"
-            app:tabGravity="fill"
-            app:tabIndicatorColor="#A4A4A4"
-            app:tabIndicatorHeight="3dp"
-            app:tabMode="fixed">
-        </com.google.android.material.tabs.TabLayout>
     </androidx.viewpager.widget.ViewPager>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/main_tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/main_viewPager"
+        app:tabGravity="fill"
+        app:tabBackground="@drawable/tab_color_selector"
+        app:tabIndicatorColor="#00000000"
+        app:tabIndicatorHeight="3dp"
+        app:tabMode="fixed"></com.google.android.material.tabs.TabLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

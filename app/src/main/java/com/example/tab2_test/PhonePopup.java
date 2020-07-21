@@ -36,11 +36,8 @@ public class PhonePopup extends Activity {
         Button phoneAdd = findViewById(R.id.phoneAdd);
 
         phoneMod.setOnClickListener(new View.OnClickListener() {
-            @Override
+//            @Override
             public void onClick(View view) {
-//                if(contact != null){
-//                    editPhone(contact);
-//                }
                 finish();
             }
         });
@@ -48,32 +45,31 @@ public class PhonePopup extends Activity {
         phoneAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if(contact != null){
-//                    removePhone(contact);
-//                }
-                Toast.makeText(view.getContext(), "'"+ EditGroup.getText().toString() + "'" + "을 추가하였습니다.", Toast.LENGTH_SHORT).show();
-                finish();
+                class GroupAdd extends AsyncTask<Void, Void, Void>{
+                    @Override
+                    protected Void doInBackground(Void... voids) {
+                        HttpRequestHelper helper = new HttpRequestHelper();
+                        helper.REGISTER_GROUP(EditGroup.getText().toString());
+
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+                        super.onPostExecute(aVoid);
+                        finish();
+                    }
+                }
+
+                GroupAdd groupAdd = new GroupAdd();
+                groupAdd.execute();
+
+                Toast.makeText(getApplicationContext(), "그룹: " + EditGroup.getText().toString() + "이 추가되었습니다.", Toast.LENGTH_SHORT).show();
+
+
             }
         });
     }
-
-//    //취소 버튼 클릭
-//    public void mOnCancel(View v) {
-//        //데이터 전달하기
-//
-//        //액티비티(팝업) 닫기
-//        finish();
-//    }
-////
-//    public void mOnDel(View v) {
-//        if(contact != null){
-//            removePhone(contact);
-//        }
-//
-//        Toast.makeText(v.getContext(), contact.getName() + "님이 삭제 되었습니다", Toast.LENGTH_SHORT).show();
-//        //액티비티(팝업) 닫기
-//        finish();
-//    }
 
 
     @Override
@@ -93,65 +89,5 @@ public class PhonePopup extends Activity {
         return true;
     }
 
-//    private void removePhone(final Contact contact) {
-//        class RemoveContact extends AsyncTask<Void, Void, Void> {
-//            @Override
-//            protected Void doInBackground(Void... voids) {
-//                HttpRequestHelper helper = new HttpRequestHelper();
-//                helper.DELETE(contact, Long.valueOf(PreferenceManager.getString(getApplicationContext(),"user_id")));
-//                return null;
-//            }
-//        }
-//
-//        RemoveContact removeContact = new RemoveContact();
-//        removeContact.execute();
-//    }
-//
-//    private void editPhone(Contact contact) {
-//         String[] projection = {
-//                 ContactsContract.Contacts._ID,
-//                 ContactsContract.Contacts.DISPLAY_NAME,
-//                 ContactsContract.Contacts.LOOKUP_KEY
-//         };
-//
-//        String displayName;
-//
-//        // The lookup key from the Cursor
-//        String currentLookupKey;
-//        // The _ID value from the Cursor
-//        Long currentId = Long.valueOf(0);
-//        // A content URI pointing to the contact
-//        Uri selectedContactUri = null;
-//
-//
-//        Cursor cursor = getContentResolver().query(
-//            ContactsContract.Contacts.CONTENT_URI,
-//            projection,
-//            null,
-//            null,
-//            null
-//        );
-//
-//        int displayNameColumn = cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
-//        int lookupKeyIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.LOOKUP_KEY);
-//
-//        while (cursor.moveToNext()) {
-//            displayName = cursor.getString(displayNameColumn);
-//            currentLookupKey = cursor.getString(lookupKeyIndex);
-//            if (displayName != contact.getName()) {
-//                continue;
-//            }
-//            else{
-//                selectedContactUri = ContactsContract.Contacts.getLookupUri(currentId, currentLookupKey);
-//            }
-//        }
-//
-//        Intent editIntent = new Intent(Intent.ACTION_EDIT);
-//
-//        editIntent.setDataAndType(selectedContactUri, ContactsContract.Contacts.CONTENT_ITEM_TYPE);
-//
-//
-//        editIntent.putExtra("finishActivityOnSaveCompleted", true);
-//        this.startActivity(editIntent);
-//    }
+
 }

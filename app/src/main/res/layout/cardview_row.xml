@@ -19,7 +19,7 @@
             android:layout_height="100px"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="3dp"
-            android:layout_marginTop="5dp"
+
             android:src="@drawable/send_call" />
 
         <TextView
@@ -29,7 +29,8 @@
             android:layout_alignParentTop="true"
             android:paddingLeft="50dp"
             android:text="name"
-            android:textColor="@android:color/black"
+            android:fontFamily="@font/jejumyeongjo"
+            android:textColor="#534847"
             android:textSize="18sp" />
 
         <TextView
@@ -39,7 +40,8 @@
             android:layout_below="@id/tvName"
             android:paddingLeft="50dp"
             android:text="email"
-            android:textColor="@android:color/black"
+            android:fontFamily="@font/jejumyeongjo"
+            android:textColor="#534847"
             android:textSize="18sp" />
 
         <CheckBox

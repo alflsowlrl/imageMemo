@@ -40,6 +40,8 @@ public class contentWriteActivity extends AppCompatActivity {
     private static final int CROP_FROM_CAMERA = 0;
     private static final int CROP_FROM_ALBUM = 1;
 
+    private String server_url = "http://192.249.19.244:1880";
+
     private final int IMAGE_RESULT = 200;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -258,7 +260,8 @@ public class contentWriteActivity extends AppCompatActivity {
                 break;
 
             case R.id.btnsave:
-                mypainter.Save(getExternalPath() + "hwimg/img.jpg");
+                mypainter.Upload("hwimg/img.jpg", server_url);
+                Toast.makeText(getApplicationContext(), "일기가 저장되었습니다.", Toast.LENGTH_SHORT).show();
                 break;
         }
 

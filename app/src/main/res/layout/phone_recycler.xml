@@ -16,9 +16,9 @@
             android:id="@+id/phoneImageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:padding="10dp"
-            android:paddingLeft="5dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             app:srcCompat="@drawable/user" />
     </LinearLayout>
 
@@ -33,9 +33,11 @@
         <TextView
             android:id="@+id/textTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="8dp"
             android:layout_weight="4"
-            android:gravity="start|center_horizontal"
+            android:gravity="start|center_vertical"
+            android:fontFamily="@font/jejumyeongjo"
+            android:textColor="#534847"
             android:textSize="20dp"
             android:text="name" />
 
@@ -45,6 +47,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="start|center_horizontal"
+            android:fontFamily="@font/jejumyeongjo"
+            android:textColor="#534847"
             android:textSize="15dp"
             android:text="phone number" />
     </LinearLayout>

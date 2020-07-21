@@ -1,25 +1,27 @@
-package com.example.myapp;
+package com.example.tab2_test;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.loader.app.LoaderManager;
@@ -29,7 +31,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
-public class MainActivity extends AppCompatActivity{
+public class TabActivity extends AppCompatActivity{
 
 
 
@@ -42,19 +44,29 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_tab);
+
+        String group_name = PreferenceManager.getString(getApplicationContext(), "group_name");
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("App Name");
 
-        Intent intent =  getIntent();
-        final Long id = intent.getLongExtra("id", -1);
+        if(group_name != null){
+            actionBar.setTitle(group_name);
+        }
+        else{
+            actionBar.setTitle("그룹");
+        }
+
+
+
+
+        final Long id = PreferenceManager.getLong(getApplicationContext(), "id");
 
         if(id == -1){
             UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
                 @Override
                 public void onCompleteLogout() {
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
@@ -76,12 +88,9 @@ public class MainActivity extends AppCompatActivity{
 
         }
 
-
-
-        PreferenceManager.setString(this, "user_id", String.valueOf(id));
-        PreferenceManager.setString(this, "group_name", "abs");
         initViewPager(); // 뷰페이저와 어댑터 장착
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -120,10 +129,7 @@ public class MainActivity extends AppCompatActivity{
             case "메모장":
                 tabLogoView.setImageResource(android.R.drawable.ic_menu_edit);
                 return tabView;
-            case "갤러리":
-                tabLogoView.setImageResource(android.R.drawable.ic_menu_edit);
-                return tabView;
-            case "연락처":
+            case "일기장":
                 tabLogoView.setImageResource(android.R.drawable.ic_menu_edit);
                 return tabView;
             default:
@@ -132,20 +138,20 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void initViewPager(){
-        FragmentTab searchFragment = new FragmentTab();
-
-        searchFragment.name = "";
-        FragmentTab cameraFragment = new GalleryTab();
-        cameraFragment.name = "";
         FragmentTab callFragment =  new PhoneTab();
         callFragment.name = "";
+        FragmentTab groupFragment = new GroupPageTab();
+        groupFragment.name = "";
 
 
 
         PageAdapter adapter = new PageAdapter(getSupportFragmentManager()); // PageAdapter 생성
         adapter.addItems(callFragment);
-        adapter.addItems(cameraFragment);
-        adapter.addItems(searchFragment);
+        adapter.addItems(groupFragment);
+
+
+//        ViewGroup viewGroup = (ViewGroup) findViewById(android.R.id.content);
+//        View layout =  LayoutInflater.from(getApplicationContext()).inflate(R.layout.activity_tab, viewGroup);
 
         ViewPager main_viewPager = (ViewPager) findViewById(R.id.main_viewPager);
         TabLayout main_tablayout = (TabLayout) findViewById(R.id.main_tablayout);
@@ -158,8 +164,7 @@ public class MainActivity extends AppCompatActivity{
 
 
         main_tablayout.getTabAt(0).setCustomView(createView("연락처"));
-        main_tablayout.getTabAt(1).setCustomView(createView("갤러리"));
-        main_tablayout.getTabAt(2).setCustomView(createView("일기장"));
+        main_tablayout.getTabAt(1).setCustomView(createView("일기장"));
 
 //        main_tablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 //            @Override

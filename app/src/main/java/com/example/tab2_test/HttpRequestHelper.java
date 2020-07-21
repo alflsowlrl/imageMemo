@@ -1,8 +1,7 @@
-package com.example.myapp;
+package com.example.tab2_test;
 
 import android.util.Log;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -12,7 +11,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 public class HttpRequestHelper {
@@ -186,6 +184,30 @@ public class HttpRequestHelper {
 
     public String GETAllFileNames(String group_name){
         return REQUEST("GET", "http://192.249.19.244:1880/api/memoBook/"+group_name, "");
+    }
+
+    public String GETAllGroupsNames(){
+        return REQUEST("GET", "http://192.249.19.244:1880/api/groupNamesAll", "");
+    }
+
+    public String REGISTER_GROUP(String group_name){
+        String json = "";
+        String url = "http://192.249.19.244:1880/api/group";
+
+        try {
+            // build jsonObject
+
+            JSONObject jsonObject = new JSONObject();
+
+            jsonObject.accumulate("group_name", group_name);
+
+
+            json = jsonObject.toString();
+
+        }
+        catch (Exception e){e.printStackTrace();}
+
+        return REQUEST("POST", url, json);
     }
 
     public String convertStreamToString(InputStream is) throws Exception {

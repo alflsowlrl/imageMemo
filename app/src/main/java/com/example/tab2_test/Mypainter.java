@@ -13,6 +13,7 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.media.Image;
+import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -22,10 +23,25 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by guswn_000 on 2017-05-18.
@@ -204,5 +220,86 @@ public class Mypainter extends View {
             e.printStackTrace();
             Toast.makeText(getContext(), "IO Exception", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    //서버에 이미지 업로드
+    public void Upload(String filename, String server_url){
+
+        File file = convertBitmapToFile(filename, mbitmap);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part imageBody = MultipartBody.Part.createFormData("productImg",filename,requestBody);
+        Gson gson = new GsonBuilder().setLenient().create();
+        UploadService uploadService = new Retrofit.Builder().
+                baseUrl(server_url).
+                addConverterFactory(GsonConverterFactory.create(gson)).
+                build().
+                create(UploadService.class);
+
+        String id = PreferenceManager.getString(getContext(), "user_id");
+        final String group_name = PreferenceManager.getString(getContext(), "group_name");
+
+        uploadService.postImage(id, group_name, imageBody).enqueue(new Callback<FileNameBody>() {
+            @Override
+            public void onResponse(Call<FileNameBody> call, Response<FileNameBody> response) {
+                Log.d("upload", response.body().file_name);
+
+                final String  file_name = response.body().file_name;
+
+                class AddFileName extends AsyncTask {
+                    @Override
+                    protected Object doInBackground(Object[] objects) {
+                        HttpRequestHelper helper = new HttpRequestHelper();
+                        helper.ADD_FILE_NAME(group_name, file_name);
+
+                        return null;
+                    }
+                }
+
+                AddFileName addFileName = new AddFileName();
+                addFileName.execute();
+
+
+            }
+
+            @Override
+            public void onFailure(Call<FileNameBody> call, Throwable t) {
+                Log.d("upload", "error");
+            }
+        });
+    }
+
+    private File convertBitmapToFile(String fileName, Bitmap bitmap){
+        //create a file to write bitmap data
+        File file = new File(getContext().getCacheDir(), fileName);
+
+        try{
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        //Convert bitmap to byte array
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
+        byte[] bitMapData = bos.toByteArray();
+
+        //write the bytes in file
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            fos.write(bitMapData);
+            fos.flush();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file;
     }
 }

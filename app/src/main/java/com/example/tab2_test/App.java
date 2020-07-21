@@ -1,4 +1,4 @@
-package com.example.myapp;
+package com.example.tab2_test;
 
 import android.app.Application;
 import android.content.Context;
@@ -9,12 +9,11 @@ import com.kakao.auth.IApplicationConfig;
 import com.kakao.auth.ISessionConfig;
 import com.kakao.auth.KakaoAdapter;
 import com.kakao.auth.KakaoSDK;
-import com.kakao.auth.Session;
 
 public class App extends Application {
     private static volatile App instance = null;
 
-    private static class KakaoSDKAdapter extends KakaoAdapter {
+    public static class KakaoSDKAdapter extends KakaoAdapter {
         /**
          * Session Config에 대해서는 default값들이 존재한다.
          * 필요한 상황에서만 override해서 사용하면 됨.

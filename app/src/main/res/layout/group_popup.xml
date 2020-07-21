@@ -17,10 +17,10 @@
             android:layout_width="match_parent"
             android:layout_height="53dp"
             android:background="#FADAD8"
-            android:gravity="center"
-            android:text="Notice"
-            android:textColor="#534847"
             android:fontFamily="@font/jejumyeongjo"
+            android:gravity="center"
+            android:text="그룹 추가"
+            android:textColor="#534847"
             android:textSize="20sp" />
     </LinearLayout>
     <!-- //end 타이틀바 -->

@@ -10,14 +10,16 @@
         android:layout_height="0dp"
         android:layout_margin="5dp"
         android:layout_weight="1"
+        android:fontFamily="@font/jejumyeongjo"
         android:scrollbars="vertical" />
 
     <Button
         android:id="@+id/btnShow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/jejumyeongjo"
         android:layout_margin="5dp"
-        android:text="Show Selected"
-        android:background="#00796B"/>
+        android:text="GROOM에 저장"
+        android:background="#FADAD8"/>
 
 </LinearLayout>

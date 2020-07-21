@@ -1,18 +1,16 @@
-package com.example.myapp;
+package com.example.tab2_test;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.example.myapp.R;
 
-public class FullScreenImageActivity extends AppCompatActivity implements View.OnLongClickListener {
+public class FullScreenImageActivity extends AppCompatActivity {
 
     private Uri mImageUri;
 
@@ -22,7 +20,6 @@ public class FullScreenImageActivity extends AppCompatActivity implements View.O
         setContentView(R.layout.activity_full_screen_image);
 
         ImageView fullScreenImageView = (ImageView) findViewById(R.id.fullScreenImageView);
-        fullScreenImageView.setOnLongClickListener(this);
 
         //이미지 Uri 받기
         Intent callingActivityIntent = getIntent();
@@ -48,18 +45,18 @@ public class FullScreenImageActivity extends AppCompatActivity implements View.O
 //        return true;
 //    }
 
-    //이미지 공유
-    private Intent createShareIntent() {
-        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.setType("image/*");
-        shareIntent.putExtra(Intent.EXTRA_STREAM, mImageUri);
-        return shareIntent;
-    }
-
-    @Override
-    public boolean onLongClick(View v) {
-        Intent shareIntent = createShareIntent();
-        startActivity(Intent.createChooser(shareIntent, "send to"));
-        return true;
-    }
+//    //이미지 공유
+//    private Intent createShareIntent() {
+//        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+//        shareIntent.setType("image/*");
+//        shareIntent.putExtra(Intent.EXTRA_STREAM, mImageUri);
+//        return shareIntent;
+//    }
+//
+//    @Override
+//    public boolean onLongClick(View v) {
+//        Intent shareIntent = createShareIntent();
+//        startActivity(Intent.createChooser(shareIntent, "send to"));
+//        return true;
+//    }
 }

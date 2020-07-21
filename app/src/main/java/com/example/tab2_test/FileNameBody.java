@@ -1,4 +1,4 @@
-package com.example.myapp;
+package com.example.tab2_test;
 
 import com.google.gson.annotations.SerializedName;
 

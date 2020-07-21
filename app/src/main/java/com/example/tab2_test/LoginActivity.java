@@ -1,14 +1,18 @@
-package com.example.myapp;
+package com.example.tab2_test;
 
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.KakaoSDK;
+import com.kakao.auth.KakaoAdapter;
+
+
 import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.ApiErrorCode;
@@ -17,6 +21,8 @@ import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
 import com.kakao.util.exception.KakaoException;
 
+import static com.example.tab2_test.App.getGlobalApplicationContext;
+
 public class LoginActivity extends AppCompatActivity {
 
     private SessionCallback sessionCallback;
@@ -24,13 +30,19 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_login);
+
+        // mainApplication.java
+//        if (KakaoSDK.getAdapter() == null) {
+//            KakaoSDK.init(new App.KakaoSDKAdapter());
+//        }
 
         sessionCallback = new SessionCallback();
         Session.getCurrentSession().addCallback(sessionCallback);
         Session.getCurrentSession().checkAndImplicitOpen();
-
-
     }
 
 

@@ -1,21 +1,17 @@
-package com.example.myapp;
+package com.example.tab2_test;
 
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.myapp.PhoneRecycleAdapter.PhoneHolder;
+
 import java.util.ArrayList;
-import java.util.Iterator;
 
 class PhoneRecycleAdapter extends RecyclerView.Adapter<PhoneRecycleAdapter.PhoneHolder> {
 

@@ -1,4 +1,4 @@
-package com.example.myapp;
+package com.example.tab2_test;
 
 import android.content.Context;
 import android.view.LayoutInflater;
