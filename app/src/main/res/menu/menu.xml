@@ -5,20 +5,25 @@
     <item
         android:id="@+id/menublur"
         android:checkable="true"
+        android:fontFamily="@font/jejumyeongjo"
         android:title="Bluring" />
 
     <item
         android:id="@+id/menupenwb"
         android:checkable="true"
+        android:fontFamily="@font/jejumyeongjo"
         android:title="Pen Width Big" />
 
-    <item android:title="Pen Color Red"
+    <item android:title="Pen Color RED "
+        android:fontFamily="@font/jejumyeongjo"
         android:id="@+id/menured"/>
 
-    <item android:title="Pen Color Blue"
+    <item android:title="Pen Color BLUE "
+        android:fontFamily="@font/jejumyeongjo"
         android:id="@+id/menublue"/>
 
-    <item android:title="Pen Color Black"
+    <item android:title="Pen Color BLACK "
+        android:fontFamily="@font/jejumyeongjo"
         android:id="@+id/menublack"/>
 
 </menu>

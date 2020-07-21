@@ -13,27 +13,56 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/jejumyeongjo"
+            android:layout_weight="1"
+            android:text="STAMP" />
+
         <Button
             android:onClick="onClick"
             android:id="@+id/btnerase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:padding="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:background="#fae5e3"
+            android:fontFamily="@font/jejumyeongjo"
             android:layout_weight="1"
             android:text="ERASER" />
 
         <Button
             android:onClick="onClick"
             android:id="@+id/btnopen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:padding="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:background="#fae5e3"
+            android:fontFamily="@font/jejumyeongjo"
             android:layout_weight="1"
-            android:text="OPEN" />
+            android:text="GALLERY" />
 
         <Button
             android:onClick="onClick"
             android:id="@+id/btnsave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:padding="0dp"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:background="#fae5e3"
+            android:fontFamily="@font/jejumyeongjo"
             android:layout_weight="1"
             android:text="SAVE" />
 
@@ -42,18 +71,127 @@
     <com.example.tab2_test.Mypainter
         android:id="@+id/painter"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="900px"
         android:layout_margin="20dp" />
 
-    <EditText
-        android:id="@+id/txtText"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
-        android:alpha="0.87"
-        android:gravity="center"
-        android:textColor="#000"
-        android:textSize="15sp"
-        android:layout_margin="20dp"/>
+        android:orientation="horizontal">
 
+        <ImageView
+            android:id="@+id/emoji00"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/emoji00" />
+
+        <ImageView
+            android:id="@+id/emoji01"
+            android:layout_marginLeft="8dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/emoji01"/>
+
+        <ImageView
+            android:id="@+id/emoji13"
+            android:layout_marginLeft="8dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/emoji13"/>
+
+
+        <ImageView
+            android:id="@+id/emoji03"
+            android:layout_marginLeft="8dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/emoji03"/>
+
+        <ImageView
+            android:id="@+id/emoji11"
+            android:layout_marginLeft="8dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/emoji11"/>
+
+        <ImageView
+            android:id="@+id/emoji12"
+            android:layout_marginLeft="8dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/emoji12"/>
+
+
+        <ImageView
+            android:id="@+id/emoji10"
+            android:layout_marginLeft="8dp"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:src="@drawable/emoji10"/>
+
+
+
+        /</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp">
+
+        <ImageView
+            android:id="@+id/emoji05"
+            android:layout_marginLeft="15dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/emoji05"/>
+
+        <ImageView
+            android:id="@+id/emoji09"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/emoji09" />
+
+        <ImageView
+            android:id="@+id/emoji07"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/emoji07" />
+
+
+        <ImageView
+            android:id="@+id/emoji06"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/emoji06" />
+
+
+        <ImageView
+            android:id="@+id/emoji08"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/emoji08" />
+
+
+        <ImageView
+            android:id="@+id/emoji02"
+            android:layout_marginLeft="8dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/emoji02"/>
+
+        <ImageView
+            android:id="@+id/emoji04"
+            android:layout_marginLeft="8dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/emoji04"/>
+
+        /</LinearLayout>
 </LinearLayout>

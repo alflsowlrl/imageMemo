@@ -12,14 +12,20 @@
         android:layout_height="wrap_content"
         android:id="@+id/AddGroup"
         android:layout_gravity="center_horizontal"
-        android:textSize="30dp"
+        android:textSize="25dp"
         android:layout_marginTop="20dp"
-
-        android:text="+ 그룹 추가하기"/>
+        android:textColor="#534847"
+        android:fontFamily="@font/jejumyeongjo"
+        android:text="➕ 그룹 추가하기"/>
 
     <ListView
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#534847"
+        android:dividerHeight="0px"
+        android:divider="#ffffff"
+        android:fontFamily="@font/jejumyeongjo"
         android:id="@+id/listview"/>
 </LinearLayout>

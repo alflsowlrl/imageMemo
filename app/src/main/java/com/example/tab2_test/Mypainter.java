@@ -10,9 +10,14 @@ import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.media.Image;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -31,14 +36,20 @@ public class Mypainter extends View {
     Bitmap mbitmap;
     Canvas mcanvas;
     Paint mpaint = new Paint();
-    Bitmap img = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-    boolean check, scaled;
+
+    Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.emoji00);
+
+
+    boolean check;
+
 
     public Mypainter(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         mpaint.setColor(Color.BLACK);
         mpaint.setStrokeWidth(3);
         this.setLayerType(LAYER_TYPE_SOFTWARE, null);
+
+
     }
 
     public Mypainter(Context context) {
@@ -46,6 +57,10 @@ public class Mypainter extends View {
         mpaint.setColor(Color.BLACK);
         mpaint.setStrokeWidth(3);
         this.setLayerType(LAYER_TYPE_SOFTWARE, null);
+    }
+
+    public void setStampImg(Bitmap img){
+        this.img = img;
     }
 
     @Override
@@ -62,15 +77,19 @@ public class Mypainter extends View {
 
     }
 
+    private void drawStamp(int X, int Y)
+    {
+        Bitmap bigimg = Bitmap.createScaledBitmap(img,img.getWidth()/2,img.getHeight()/2,false);
+        mcanvas.drawBitmap(bigimg,X,Y,mpaint);
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (mbitmap != null)
-            canvas.drawBitmap(mbitmap, 0, 0, null);
+        if(mbitmap != null)
+            canvas.drawBitmap(mbitmap,0,0,null);
 
     }
-
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -90,7 +109,30 @@ public class Mypainter extends View {
                 oldY = Y;
             }
         }
+
+        else if (event.getAction() == MotionEvent.ACTION_UP)
+        {
+            if(oldX != -1)
+            {
+                if(check)
+                {
+                    drawStamp(X,Y);
+                }
+                else
+                {
+                    mcanvas.drawLine(oldX,oldY,X,Y,mpaint);
+                }
+            }
+            invalidate();
+            oldX = -1; oldY = -1;
+        }
+
         return true;
+    }
+
+    public void checkboxcheck(boolean checked)
+    {
+        check = checked;
     }
 
     //menu
@@ -136,7 +178,7 @@ public class Mypainter extends View {
         try {
             FileInputStream in = new FileInputStream(filename);
             mcanvas.scale(0.5f, 0.5f);
-            mcanvas.drawBitmap(BitmapFactory.decodeStream(in), mcanvas.getWidth() / 2, mcanvas.getHeight() / 2, mpaint);
+            mcanvas.drawBitmap(BitmapFactory.decodeStream(in), 0, 0, mpaint);
             mcanvas.scale(2.0f, 2.0f);
             in.close();
             invalidate();
